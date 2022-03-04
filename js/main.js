@@ -4,12 +4,7 @@ const evenButton = document.getElementById('pari');
 const oddButton = document.getElementById('dispari');
 const oddEvenInput = document.getElementById('odd-even-input');
 const oddEvenResult = document.getElementById('game-result');
-
-function keyEnter(e){
-    if(e.keyCode == '13'){  
-        displayPalindromeResult(checkPalindrome(userInputPalindrome.value.toLowerCase()));
-    }
-}
+let oddOrEven;
 
 function displayPalindromeResult(check){
     if(check==true){
@@ -50,8 +45,53 @@ function checkPalindrome(word){
     }
 }
 
-function playOddEven(){}
+function randomNumberGenerator(){
+    return (Math.floor(Math.random()*4)+1);
+}
+for(let i=0;i<100;i++){
+    console.log(randomNumberGenerator());
 
-userInputPalindrome.addEventListener('keypress', keyEnter);
-evenButton.addEventListener('click',playOddEven);
-oddEvenInput.addEventListener('keypress', keyEnter);
+}
+function playOdd(){
+    oddOrEven = 1;
+    return oddOrEven;
+}
+function playEven(){
+    oddOrEven = 0;
+    return oddOrEven;
+}
+
+userInputPalindrome.addEventListener('keypress', function(e) {
+    if(e.key == 'Enter'){  
+        displayPalindromeResult(checkPalindrome(userInputPalindrome.value.toLowerCase()));
+    }
+});
+
+oddButton.addEventListener('click',playOdd);
+evenButton.addEventListener('click',playEven);
+
+oddEvenInput.addEventListener('keypress', function(e){
+    if(e.key == 'Enter'){  
+        let sum=0;
+        if(oddOrEven==0){
+            sum =parseInt(randomNumberGenerator())+parseInt(oddEvenInput.value);
+            oddEvenResult.innerHTML=randomNumberGenerator()+' + '+ oddEvenInput.value +' = '+sum;
+            if(sum%2==0){
+                oddEvenResult.innerHTML+='  hai vinto ';
+            }
+            else {
+                oddEvenResult.innerHTML+='  hai perso ';
+            }
+        }
+        if(oddOrEven==1){
+            sum =parseInt(randomNumberGenerator())+parseInt(oddEvenInput.value);
+            oddEvenResult.innerHTML=randomNumberGenerator()+' + '+ oddEvenInput.value +' = '+sum;
+            if(sum%2==0){
+                oddEvenResult.innerHTML+='  hai perso ';
+            }
+            else {
+                oddEvenResult.innerHTML+='  hai vinto ';
+            }
+        }
+    }
+});
